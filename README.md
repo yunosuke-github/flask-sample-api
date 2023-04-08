@@ -6,11 +6,19 @@ GitHub Actionを使ってCI/CDを体験する用のリポジトリ
 
 ## GitHub Action
 
-下記ymlファイルにより、mainブランチとmainブランチに対してプルリクエストを作成すると自動でテストが実行される
+### pytest.yml
+mainブランチとmainブランチに対してプルリクエストを作成すると自動でテストが実行される
 
-```
-.github/workflows/pytest.yml
-```
+### image-build.yml
+mainブランチに対してpushされ、pytestのワークフローが正常に終了するとdocker buildを実行してDockerHubにimageをpushする
+
+#### 注意点
+
+下記設定をしておかないと、Jobがエラーとなる。
+- ワークフローの中でgit tagをpushしているため、Settings > Actions > General > Workflow permissionsをRead and writeにする必要がある
+- DockerHubにimageをpushするため、Settings > Secrets and Variables > Actionsに下記Secretを登録する必要がある
+  - DOCKER_USERNAME: DockerHubのユーザー名
+  - DOCKER_PASSWORD: DockerHubのログインパスワード
 
 ## ローカルで実行
 
