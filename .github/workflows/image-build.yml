@@ -30,7 +30,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Set tag value
         run: |
-          echo "GIT_TAG=$(TZ=Asia/Tokyo date +%Y%m%d%H%M%S)" >> $GIT_TAG
+          echo "GIT_TAG=$(TZ=Asia/Tokyo date +%Y%m%d%H%M%S)" >> $GITHUB_ENV
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
