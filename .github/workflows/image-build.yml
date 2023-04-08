@@ -38,6 +38,6 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/flask-sample-api:${{ env.TAG }}
       - name: Add git tag
-      - run: |
+        run: |
           git tag ${{ env.TAG }}
           git push origin ${{ env.TAG }}
