@@ -36,8 +36,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/flask-sample-api:${{ env.$GIT_TAG }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/flask-sample-api:${{ env.GIT_TAG }}
       - name: Add git tag
         run: |
-          git tag ${{ env.$GIT_TAG }}
-          git push origin ${{ env.$GIT_TAG }}
+          git tag ${{ env.GIT_TAG }}
+          git push origin ${{ env.GIT_TAG }}
