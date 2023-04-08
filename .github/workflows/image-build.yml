@@ -10,9 +10,6 @@ on:
     types:
       - completed
 
-env:
-  TAG: echo "$(TZ=Asia/Tokyo date +%Y%m%d%H%M%S)"
-
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
@@ -31,13 +28,16 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set tag value
+        run: |
+          echo "GIT_TAG=$(TZ=Asia/Tokyo date +%Y%m%d%H%M%S)" >> $GIT_TAG
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/flask-sample-api:${{ env.TAG }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/flask-sample-api:${{ env.$GIT_TAG }}
       - name: Add git tag
         run: |
-          git tag ${{ env.TAG }}
-          git push origin ${{ env.TAG }}
+          git tag ${{ env.$GIT_TAG }}
+          git push origin ${{ env.$GIT_TAG }}
