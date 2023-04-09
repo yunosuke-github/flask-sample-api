@@ -22,8 +22,9 @@ jobs:
           echo '::error::Previous workflow was failed'
           exit 1
 
-  push_to_registry:
+  push-to-registry:
     name: Push Docker image to Docker Hub
+    needs: check-previous-workflow
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
